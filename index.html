@@ -7,135 +7,47 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-
     <div class="mixpanel-platform-section">
-      <div class="instructions">
-        <h1 style="font-size: 18px; color: rgb(95,105,131)">Create a funnel</h1><br>
-        <div style="clear: both;"></div>
-        
-        <div class="selections">
-          <div id="mpselect" style="float: right;"></div>
-          <p style="font-size: 14px; color: rgb(95,105,131); float: right; padding-right: 15px;">Time To Complete Funnel: </p>
-          <p style="font-size: 14px; color: rgb(95,105,131); float: left; padding-right: 15px;">Select Date Range:</p>  
-          <div id="dateSelect" style="float: left; margin-bottom: 15px"></div>
-        </div>
-        <div style="clear: both;"></div>
-      </div><br>
-      
-      <div class="funnel-step" id="funnel-step">
-        <div class="event-selects" id="step1">
-          <div class="step_header" style ="padding: 8px 15px; padding-top: 8px; padding-right: 15px; padding-bottom: 8px; padding-left: 15px; background-color: #E4E6EA; border-radius: 3px 3px 0 0; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; box-shadow: inset 0 1px #fbfbfd; position: relative; 'display': 'inline-block';">
-          <img src="https://cdn.mxpnl.com/cache/fa5ca9a7928f8ac78988e3c4ac427802/images/reports/funnels3/drag_handle.png" style = "margin-right: 8px; cursor: all-scroll;">
-          <h3 style = "display: inline; color: #596679; font-size: 13px;">Step 1</h3>
-          </div>
-          <div class="step_body" style= "padding: 16px 15px; padding-top: 16px; padding-right: 15px; padding-bottom: 16px; padding-left: 15px; background-color: #fff; border-top: 1px solid #ccd5e0; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 213, 224); border-radius: 0 0 3px 3px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;">
-            <div id="event1" style="padding: 0 25px 0 28px; padding-top: 0px; padding-right: 25px; padding-bottom: 0px; padding-left: 28px;"></div>
-          </div>
-          <div class="drop" style= "height: 19px; -webkit-transition: height .1s; transition: height .1s; transition-property: height; transition-duration: 0.1s; transition-timing-function: initial; transition-delay: initial;"></div>
-        </div>
-      </div>
-      
-      
-      <form id="addEvent" style="margin-bottom: 15px; height: 31px; float:center; display:inline; width: 49%;">
-        <input type="submit" name="submit" value="Add Event" style="font-weight: bold; color: rgb(95,105,131); font-size: 12px; height: 31px; padding: 0 10px; margin-left: 10px; border: 1px solid rgb(201,209,219); background-color: rgb(242,244,246);">
-      </form>
-      
-      <button id="run" value="Run" style="font-weight: bold; color: rgb(255,255,255); font-size: 12px; height: 31px; padding: 0 25px; margin-left: 10px; border: 1px solid rgb(77,147,215); background-color: rgb(96,173,233);">Run</button>
+      <div id="dateSelect" style="float: right;"></div>
       <div style="clear: both;"></div>
+      <div id="graph"></div>
     </div>
-      
-    <div class="results">
-      <p class="results-text" style="color: rgb(95,105,131); font-size: 18px; display: inline;"></p>
-    </div>
-    
+
     <script>
-      MP.api.ready(function() {
-        // Generate dropdowns in the UI
-        var funnelStep = $('#funnel-step');
-        i = 2;
-        $('#addEvent').submit(function(e) {
-          e.preventDefault();
-          $('.results-text').html("");
-          $('<div class="event-selects" id="step'+i+'"><div class="step_header" style ="padding: 8px 15px; padding-top: 8px; padding-right: 15px; padding-bottom: 8px; padding-left: 15px; background-color: #E4E6EA; border-radius: 3px 3px 0 0; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; box-shadow: inset 0 1px #fbfbfd; position: relative; display: inline-block;"><img src="https://cdn.mxpnl.com/cache/fa5ca9a7928f8ac78988e3c4ac427802/images/reports/funnels3/drag_handle.png" style = "margin-right: 8px; cursor: all-scroll;"><h3 style = "display: inline; color: #596679; font-size: 13px;">Step '+i+'</h3></div><div class="step_body" style= "padding: 16px 15px; padding-top: 16px; padding-right: 15px; padding-bottom: 16px; padding-left: 15px; background-color: #fff; border-top: 1px solid #ccd5e0; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 213, 224); border-radius: 0 0 3px 3px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;"><div id="event'+i+'" style="padding: 0 25px 0 28px; padding-top: 0px; padding-right: 25px; padding-bottom: 0px; padding-left: 28px;"></div></div><div class="drop" style= "height: 19px; -webkit-transition: height .1s; transition: height .1s; transition-property: height; transition-duration: 0.1s; transition-timing-function: initial; transition-delay: initial;"></div></div>').appendTo(funnelStep);
-          window['event'+i] = $('#event'+i).MPEventSelect()
-          console.log(window['event'+i] = $('#event'+i).MPEventSelect());
-          i++;
-          return false;
-        });
-        var options = {
-          items: [
-            {label: '1 day', value: 1},
-            {label: '1 week', value: 7},
-            {label: '2 weeks', value: 14},
-            {label: '30 days', value: 30},
-            {label: '90 days', value: 90}
-            ]
-        };
-        var event1 = $('#event1').MPEventSelect(),
-            intervalSelect  = $('#mpselect').MPSelect(options),
-            dateSelect  = $('#dateSelect').MPDatepicker();
-        
-        // Run Query    
-        var runQuery = function() {
-          var events = [],
-              dateRange = dateSelect.MPDatepicker('value'),
-              fromDate = dateRange.from,
-              toDate = dateRange.to,
-              interval  = intervalSelect.MPSelect('value');
-              
-          for (j=1;j<i;j++) {
-            var thisEvent = eval('event'+j);
-            value = thisEvent.MPEventSelect('value');
-            if (value != null) {
-              events.push({
-                event: value
-              });
-            };
-          };
-          
-          if (events.length == 1) {
-            $('.results-text').html("Error: Please select atleast 2 events.").css("color", "red");
-          } else {
-            $('.results-text').html("");
-            var params =  $.extend({}, dateRange, {
-              'events': events,
-              'limit': 100, // maximum number of results to return
-              'length': interval // number of days each user has to complete the funnel
-            });
-            
-            MP.api.funnel(params).done(function(results) {
-              output = {};
-              finalOutput = '<h1 style="font-size: 18px; color: rgb(95,105,131)">Results:</h1></br>';
-              stepNum = -1;
-              _.each(_.keys(results), function(step){
-                stepNum += 1
-                var stepValues = results[step];
-                var sum = 0;
-                _.each(_.keys(stepValues), function(dates){
-                  var value = stepValues[dates]["count"];
-                  sum += value;
-                });
-                event = events[stepNum]["event"]
-                output[event] = sum;
-              });
-              
-              
-              console.log(results)
-              console.log(output) 
-              
-              for (x=1;x<events.length;x++) {
-                eventB = events[x]["event"];
-                eventA = events[x-1]["event"];
-                conversion = output[eventB]/output[eventA]
-                finalOutput += "Conversion "+x+": Total "+eventB+" / Total "+eventA+" - "+conversion+"</p></ br>";
-              };
-              $('.results-text').html(finalOutput).css('font-size', '16px')
-            });
-          };
+      var dateSelect  = $('#dateSelect').MPDatepicker();
+      var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
+
+      var runQuery = function() {
+        var funnelEvents = {
+          event:'App Open',
+          selector:'',
+          event:'Character Created',
+          selector:'',
+          event:'Game Played',
+          selector:''
         };
         
-        //Run when button clicked
-        $('#run').on('click', function(e){runQuery()});
+        var params = {
+          from: moment().subtract(1, 'months'),
+          to: moment(),
+          length: 30
+        };
+        
+
+        if (eventName) {
+          MP.api.funnel(funnelEvents, [params]).done(function(results) {
+            eventGraph.MPChart('setData', results);
+            console.log(results);
+          });
+        }
+      };
+      eventSelect.on('change', function(e, eventName) {
+        propSelect.MPPropertySelect('setEvent', eventName);
+        $("#by").show();
+        runQuery();
+      });
+      $(document).ready(function() {
+        runQuery();
       });
     </script>
   </body>
