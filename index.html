@@ -17,7 +17,7 @@
       var dateSelect  = $('#dateSelect').MPDatepicker();
       var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
 
-      var runQuery = function() {
+      function runQuery() {
         var funnelEvents = {
           event:'App Open',
           // selector:'',
@@ -31,14 +31,12 @@
           to: moment(),
           length: 30
         };
+        console.log(params);
         
-
-        if (funnelEvents) {
-          MP.api.funnel(funnelEvents, [params]).done(function(results) {
-            eventGraph.MPChart('setData', results);
-            console.log(results);
-          });
-        }
+        MP.api.funnel(funnelEvents, [params]).done(function(results) {
+          eventGraph.MPChart('setData', results);
+          console.log(results);
+        });
       };
       $(document).ready(function() {
         runQuery();
