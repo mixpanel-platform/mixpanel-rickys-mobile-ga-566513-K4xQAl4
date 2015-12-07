@@ -20,7 +20,7 @@
         var funnelEvents = {
           event:'App Open'
           },
-          {event:'Character Created',
+          {event:'Character Created'
           },
           {event:'Game Played'
           };
@@ -32,7 +32,7 @@
         };
         console.log(params);
         
-        MP.api.funnel('App Open', 'Character Created', params).done(function(results) {
+        MP.api.funnel(funnelEvents, params).done(function(results) {
           eventGraph.MPChart('setData', results);
           console.log(results);
         });
