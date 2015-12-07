@@ -17,11 +17,17 @@
       var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
 
       function runQuery() {
-        var funnelEvents = {
-          event:'App Open'
-          event:'Character Created'
-          event:'Game Played'
-        };
+        var funnelEvents = [{
+          event:'App Open',
+          // selector:''
+          },
+          {event:'Character Created',
+          // selector:''
+          },
+          event:'Game Played',
+          // selector:''
+          }
+          ];
         
         var params = {
           from: moment().subtract(1, 'months').format(),
