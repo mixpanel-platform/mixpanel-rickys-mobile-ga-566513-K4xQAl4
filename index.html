@@ -40,7 +40,7 @@
         MP.api.funnel('App Open','Character Created', params).done(function(results) {
           console.log(results);
           for (i = 0; i <= results.length; i++) {
-            var chartData[i] = results[i];
+            var chartData.push(results[i]);
             console.log(chartData[i]);
           }
           eventGraph.MPChart('setData', chartData);
