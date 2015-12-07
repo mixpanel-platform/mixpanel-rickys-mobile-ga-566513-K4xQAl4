@@ -33,7 +33,7 @@
         };
         
 
-        if (eventName) {
+        if (funnelEvents) {
           MP.api.funnel(funnelEvents, [params]).done(function(results) {
             eventGraph.MPChart('setData', results);
             console.log(results);
