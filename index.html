@@ -45,8 +45,9 @@
           var step;
           for (i = 0; i < results.length; i++) {
             console.log(results[i][formattedFrom]);
-            // step = results[i][prop];
-            // chartData.push(step);
+            step = results[i][formattedFrom]["goal"];
+            count = results[i][formattedFrom]["count"];
+            chartData.push(step: count);
             // console.log(chartData[i]);
           }
           eventGraph.MPChart('setData', chartData);
