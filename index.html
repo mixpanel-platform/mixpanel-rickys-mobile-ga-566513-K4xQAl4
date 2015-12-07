@@ -48,6 +48,7 @@
             step = results[i][formattedFrom]["goal"];
             count = results[i][formattedFrom]["count"];
             chartData[i] = step + ": " + count;
+            console.log(chartData[i]);
             // console.log(chartData[i]);
           }
           eventGraph.MPChart('setData', chartData);
