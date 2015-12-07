@@ -38,7 +38,7 @@
         
         MP.api.funnel('App Open','App Level', params).done(function(results) {
           console.log(results);
-          var chartData = results
+          // var chartData = results;
           eventGraph.MPChart('setData', results);
           
         });
