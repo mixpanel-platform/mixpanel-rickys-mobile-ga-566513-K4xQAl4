@@ -49,11 +49,7 @@
             count = results[i][formattedFrom]["count"];
             chartArray.push(step + ": " + count);
           }
-          
-          var chartData = chartArray.reduce(function(o, v, i) {
-            o[i] = v;
-            return o;
-          }, {});
+          $.extend({},chartArray);
           console.log(chartData);
           eventGraph.MPChart('setData', chartData);
           
