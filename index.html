@@ -15,10 +15,8 @@
 
 
     <script>
-      var eventGraph  = $('#graph').MPChart({chartType: 'bar'}, {tooltip: {
-            headerFormat: '<span style="font-size:20px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        }});
+      var eventGraph  = $('#graph').MPChart({chartType: 'bar'}, {highchartsOptions:  yAxis: {
+            alternateGridColor: '#FDFFD5'}});
       var fromDate = moment().subtract(30, 'days');
       var formattedFrom = fromDate.format("YYYY-MM-DD");
 
