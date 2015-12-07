@@ -8,44 +8,80 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
-      <div id="dateSelect" style="float: right;"></div>
+      <div id="eventSelect"></div>
       <div style="clear: both;"></div>
       <div id="graph"></div>
     </div>
 
-    <script>
-      var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
 
-      function runQuery() {
-        // var funnelEvents = [{
-        //   'event':'App Open',
-        //   'selector': ''
-        //   },
-        //   {'event':'Character Created',
-        //   'selector': ''
-        //   },
-        //   {'event':'Game Played',
-        //   'selector': ''
-        //   }];
-        
-        var params = {
-          from: moment().subtract(3, 'months'),
-          to: moment(),
-          length: 30,
-          interval: 30
-        };
-        console.log(params);
-        
-        MP.api.funnel('App Open','App Level', params).done(function(results) {
-          console.log(results);
-          // var chartData = results;
-          eventGraph.MPChart('setData', results);
-          
+<script>
+      var eventsArray = ['App Open'];
+
+      var eventSelect = $('#eventSelect').MPEventSelect();
+
+      var runQuery = function(events) {
+        console.log('Making a funnel query with events:', events);
+
+        // Call the funnel endpoint passing events
+        // If events is ['A', 'B', 'C'], this is equivalent to calling
+        // MP.api.funnel('A', 'B', 'C') ...
+        MP.api.funnel.apply(MP.api, events).done(function(funnelData) {
+          console.log('Results:');
+          console.log(funnelData);
         });
       };
-      $(document).ready(function() {
-        runQuery();
+
+      // Do an initial query to render the first event node
+      runQuery(eventsArray);
+
+      // When the event select changes, re-query and re-render
+      eventSelect.on('change', function() {
+        var event = eventSelect.MPEventSelect('value');
+
+        // Only add events that we aren't already querying on
+        if (!_.contains(eventsArray, event)) {
+          eventsArray.push(event); // add the new event to our events array
+          runQuery(eventsArray);
+        }
       });
+    </script>
+
+
+    <script>
+    //   var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
+
+    //   function runQuery() {
+    //     // var funnelEvents = [{
+    //     //   'event':'App Open',
+    //     //   'selector': ''
+    //     //   },
+    //     //   {'event':'Character Created',
+    //     //   'selector': ''
+    //     //   },
+    //     //   {'event':'Game Played',
+    //     //   'selector': ''
+    //     //   }];
+        
+    //     var params = {
+    //       from: moment().subtract(1, 'months'),
+    //       to: moment(),
+    //       length: 30,
+    //       interval: 30
+    //     };
+    //     console.log(params);
+        
+    //     MP.api.funnel('App Open','Character Created', params).done(function(results) {
+    //       console.log(results);
+    //       for (i = 0, i <= results.length, i++) {
+    //         chartData
+    //       }
+    //       eventGraph.MPChart('setData', chartData);
+          
+    //     });
+    //   };
+    //   $(document).ready(function() {
+    //     runQuery();
+    //   });
     </script>
   </body>
 </html>
