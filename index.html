@@ -20,11 +20,10 @@
       var runQuery = function() {
         var funnelEvents = {
           event:'App Open',
-          selector:'',
+          // selector:'',
           event:'Character Created',
-          selector:'',
-          event:'Game Played',
-          selector:''
+          // selector:'',
+          event:'Game Played'
         };
         
         var params = {
@@ -41,11 +40,6 @@
           });
         }
       };
-      eventSelect.on('change', function(e, eventName) {
-        propSelect.MPPropertySelect('setEvent', eventName);
-        $("#by").show();
-        runQuery();
-      });
       $(document).ready(function() {
         runQuery();
       });
