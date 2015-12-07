@@ -16,6 +16,8 @@
 
     <script>
       var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
+      var fromDate = moment().subtract(30, 'days');
+      var formattedFrom = fromDate.format(YYYY-MM-DD);
 
       function runQuery() {
         // var funnelEvents = [{
@@ -30,7 +32,7 @@
         //   }];
         
         var params = {
-          from: moment().subtract(30, 'days'),
+          from: fromDate,
           to: moment(),
           length: 30,
           interval: 30
@@ -42,7 +44,7 @@
           chartData = [];
           var step;
           for (i = 0; i < results.length; i++) {
-            console.log(results[i]['2015-11-07']);
+            console.log(results[i][formattedFrom]);
             // step = results[i][prop];
             // chartData.push(step);
             // console.log(chartData[i]);
