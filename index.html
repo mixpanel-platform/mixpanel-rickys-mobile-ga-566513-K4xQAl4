@@ -17,7 +17,7 @@
     <script>
       var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
       var fromDate = moment().subtract(30, 'days');
-      var formattedFrom = fromDate.format(YYYY-MM-DD);
+      var formattedFrom = fromDate.format("YYYY-MM-DD");
 
       function runQuery() {
         // var funnelEvents = [{
