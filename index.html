@@ -15,8 +15,52 @@
 
 
     <script>
-      var highOptions = {backgroundColor: '#000000'};
-      var eventGraph  = $('#graph').MPChart({chartType: 'line', highchartsOptions: highOptions} );
+      var highOptions = {title: {
+            text: 'Mouse events demo'
+        },
+        subtitle: {
+            text: 'On point mouse over or mouse out, the values should be reported in top left'
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        mouseOver: function () {
+                            var chart = this.series.chart;
+                            if (!chart.lbl) {
+                                chart.lbl = chart.renderer.label('')
+                                    .attr({
+                                        padding: 10,
+                                        r: 10,
+                                        fill: Highcharts.getOptions().colors[1]
+                                    })
+                                    .css({
+                                        color: '#FFFFFF'
+                                    })
+                                    .add();
+                            }
+                            chart.lbl
+                                .show()
+                                .attr({
+                                    text: 'x: ' + this.x + ', y: ' + this.y
+                                });
+                        }
+                    }
+                },
+                events: {
+                    mouseOut: function () {
+                        if (this.chart.lbl) {
+                            this.chart.lbl.hide();
+                        }
+                    }
+                }
+            }
+        },
+
+        tooltip: {
+            enabled: false
+        }};
+      var eventGraph  = $('#graph').MPChart({chartType: 'bar', highchartsOptions: highOptions} );
       var fromDate = moment().subtract(30, 'days');
       var formattedFrom = fromDate.format("YYYY-MM-DD");
 
