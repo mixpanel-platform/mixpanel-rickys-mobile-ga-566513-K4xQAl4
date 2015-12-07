@@ -17,21 +17,22 @@
       var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
 
       function runQuery() {
-        var funnelEvents = [{
-          'event':'App Open',
-          'selector': ''
-          },
-          {'event':'Character Created',
-          'selector': ''
-          },
-          {'event':'Game Played',
-          'selector': ''
-          }];
+        // var funnelEvents = [{
+        //   'event':'App Open',
+        //   'selector': ''
+        //   },
+        //   {'event':'Character Created',
+        //   'selector': ''
+        //   },
+        //   {'event':'Game Played',
+        //   'selector': ''
+        //   }];
         
         var params = {
           from: moment().subtract(1, 'months').format(),
           to: moment().format(),
-          length: 30
+          length: 30,
+          interval: 30
         };
         console.log(params);
         
