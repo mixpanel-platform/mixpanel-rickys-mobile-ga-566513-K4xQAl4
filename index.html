@@ -27,8 +27,8 @@
         };
         
         var params = {
-          from: moment().subtract(1, 'months'),
-          to: moment(),
+          from: moment().subtract(1, 'months').format(),
+          to: moment().format(),
           length: 30
         };
         console.log(params);
