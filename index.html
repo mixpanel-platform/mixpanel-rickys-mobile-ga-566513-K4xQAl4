@@ -36,9 +36,11 @@
         };
         console.log(params);
         
-        MP.api.funnel('App Open','Character Created', params).done(function(results) {
-          // eventGraph.MPChart('setData', results);
+        MP.api.funnel('App Open','App Level', params).done(function(results) {
           console.log(results);
+          var chartData = results
+          eventGraph.MPChart('setData', results);
+          
         });
       };
       $(document).ready(function() {
