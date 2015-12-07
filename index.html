@@ -15,8 +15,13 @@
 
 
     <script>
-      var eventGraph  = $('#graph').MPChart({chartType: 'bar'}, {yAxis: {
-            alternateGridColor: '#FDFFD5'}});
+      var highOptions = {xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            alternateGridColor: '#FDFFD5'
+        }};
+      var eventGraph  = $('#graph').MPChart({chartType: 'bar'}, {highchartsOptions: highOptions} );
       var fromDate = moment().subtract(30, 'days');
       var formattedFrom = fromDate.format("YYYY-MM-DD");
 
